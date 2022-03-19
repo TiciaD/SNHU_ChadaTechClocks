@@ -7,6 +7,10 @@ using namespace std;
 #include <time.h>
 #include <conio.h>
 
+int main() {
+	//Current time
+	time_t now = time(0);
+}
 
 // takes in hour, minute or second and increments it
 int incrementTime(int currUnit) {
