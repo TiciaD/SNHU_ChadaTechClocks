@@ -8,7 +8,7 @@ using namespace std;
 #include <windows.h>
 #pragma warning(disable: 4996)
 
-
+// outputs menu display format
 void displayMenu() {
     cout << "***************************" << endl;
     cout << "* 1 - Add One Hour        *" << endl;
@@ -18,7 +18,8 @@ void displayMenu() {
     cout << "***************************" << endl;
 }
 
-void AddHour(int* hr, int* min, int* sec) {
+// takes in current hr, min and sec, then increments hr accordingly
+void addHour(int* hr, int* min, int* sec) {
     if (*hr == 12) {
         *hr = 01;
     }
@@ -27,20 +28,22 @@ void AddHour(int* hr, int* min, int* sec) {
     }
 }
 
-void AddMinute(int* hr, int* min, int* sec) {
+// takes in current hr, min and sec, then increments min accordingly and hr if needbe
+void addMinute(int* hr, int* min, int* sec) {
     if (*min == 59) {
         *min = 0;
-        AddHour(hr, min, sec);
+        addHour(hr, min, sec);
     }
     else {
         *min += 1;
     }
 }
-//Function to add 1 second to both clocks
-void AddSecond(int* hr, int* min, int* sec) {
+
+// takes in current hr, min and sec, then increments sec accordingly and min if needbe
+void addSecond(int* hr, int* min, int* sec) {
     if (*sec == 59) {
         *sec = 00;
-        AddMinute(hr, min, sec);
+        addMinute(hr, min, sec);
     }
     else {
         *sec += 1;
@@ -59,22 +62,28 @@ int main() {
 	
     while (exit == false) {
         system("cls");
-
-        // Display option menu
-        displayMenu();
-        
-
         // display 24 hr clock
-        cout << "***************************" << endl;
-        cout << "*      24-Hour Clock      *" << endl;
-        cout << "*      " << 
+        cout << "***************************" << "     " << "***************************" << endl;
+        cout << "*      12-Hour Clock      *" << "     " << "*      24-Hour Clock      *" << endl;
+        cout << "*      " <<
+            (hrs - 12 < 10 ? "0" : "") << (hrs > 12 ? hrs - 12 : hrs) << " : " <<
+            (minutes < 10 ? "0" : "") << minutes << " : " <<
+            (seconds < 10 ? "0" : "") << seconds << 
+            (hrs > 12 ? " PM" : " AM") <<
+            "    *" << 
+            "     "
+            "*      " << 
             (hrs < 10 ? "0" : "") << hrs << " : " << 
             (minutes < 10 ? "0" : "") << minutes << " : " << 
             (seconds < 10 ? "0" : "") << seconds << "      *" << endl;
-        cout << "***************************" << endl;
+        cout << "***************************" << "     " << "***************************" << endl;
+
+        // Display option menu
+        displayMenu();
 
         // increment sec
         seconds++;
+
         // increases the seconds
         if (seconds >= 60) {
             seconds = 1;
@@ -93,22 +102,22 @@ int main() {
         // take in user input choice
         cin >> choice;
 
-        // user input follows option menu
+        // based on user input follows option menu
         switch (choice) {
             case 1:
                 // if choice == 1, call addHour function
-                AddHour(&hrs, &minutes, &seconds);
+                addHour(&hrs, &minutes, &seconds);
                 // clear screen
                 system("CLS");
                 break;
             case 2:
                 // if choice == 2, call addMinute function
-                AddMinute(&hrs, &minutes, &seconds);
+                addMinute(&hrs, &minutes, &seconds);
                 system("CLS");
                 break;
             case 3:
                 // if choice == 3, call addSecond function
-                AddSecond(&hrs, &minutes, &seconds);
+                addSecond(&hrs, &minutes, &seconds);
                 system("CLS");
                 break;
             case 4:
